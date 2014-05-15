@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/CapitalGene/objc-CGCalendarView"
   s.license      = "MIT"
   s.authors      = { "Chen Liang" => "code@chen.technology" }
-  s.source       = { :git => "https://github.com/CapitalGene/objc-CGCalendarView.git" }
+  s.source       = { :git => "https://github.com/CapitalGene/objc-CGCalendarView.git", :tag => '0.0.1'}
   s.frameworks   = 'Foundation', 'CoreGraphics', 'UIKit'
   s.platform     = :ios, '6.0'
   s.source_files = 'src/*.{h,m}'
