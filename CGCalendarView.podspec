@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "CGCalendarView"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A Lightweight Horizontal Calendar/Date Picker inspired by Square's TimesSquare"
   s.homepage     = "https://github.com/CapitalGene/objc-CGCalendarView"
   s.license      = "MIT"
