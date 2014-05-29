@@ -21,10 +21,10 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        [self _CGCalendarView_commonInit];
+    if (!self) {
+        return nil;
     }
+    [self _CGCalendarView_commonInit];
     return self;
 }
 
@@ -34,15 +34,12 @@
     if (!self) {
         return nil;
     }
-    
     [self _CGCalendarView_commonInit];
-    
     return self;
 }
 
 - (void)_CGCalendarView_commonInit
 {
-    //DLog(@"in _CGCalendarView_commonInit");
     _tableView = [[UITableView alloc] initWithFrame:self.bounds style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -109,13 +106,12 @@
 
 - (void)setSelectedDate:(NSDate *)newSelectedDate;
 {
-
     if ([self.delegate respondsToSelector:@selector(calendarView:shouldSelectDate:)] && ![self.delegate calendarView:self shouldSelectDate:newSelectedDate]) {
         return;
     }
-    
+
     _selectedDate = newSelectedDate;
-    
+
     if ([self.delegate respondsToSelector:@selector(calendarView:didSelectDate:)]) {
         [self.delegate calendarView:self didSelectDate:newSelectedDate];
     }
@@ -124,9 +120,7 @@
 
 - (void)scrollToDate:(NSDate *)date animated:(BOOL)animated
 {
-
     [self.tableView scrollToRowAtIndexPath:[self indexPathForRowAtDate:date] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-
 }
 
 #pragma mark Calendar calculations
@@ -154,7 +148,7 @@
     if (!date) {
         return nil;
     }
-    
+
     NSInteger section = [self sectionForDate:date];
 
     int days = [self daysWithinEraFromDate:self.firstDate toDate:date];
@@ -179,7 +173,6 @@
 
 - (void)layoutSubviews;
 {
-
     self.tableView.frame = self.bounds;
     if (self.selectedDate == Nil) {
         self.selectedDate = [NSDate date];
@@ -193,8 +186,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {
-    //DLog(@"in numberOfSectionsInTableView");
-    //return 1 + [self.calendar components:NSMonthCalendarUnit fromDate:self.firstDate toDate:self.lastDate options:0].month;
     return 1;
 }
 
@@ -205,24 +196,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-
         static NSString *identifier = @"row";
         CGCalendarCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
+
         if (!cell) {
             cell = [[[self rowCellClass] alloc] initWithCalendar:self.calendar reuseIdentifier:identifier];
-            //cell.contentView.backgroundColor = [UIColor silver];//self.backgroundColor;
             cell.calendarView = self;
             cell.transform = CGAffineTransformMakeRotation(M_PI/2);
         }
-    
-    
         return cell;
-    
 }
 
 #pragma mark UITableViewDelegate
 
+// Call `rowCellClass` `setDate`
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     NSDate *targetDate = [self dateForCellAtIndexPath:indexPath];
@@ -244,20 +231,20 @@
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset;
 {
-    
+
     if (velocity.y > 0.38f) {
         velocity.y = 0.38f;
     }
-    
+
     scrollView.decelerationRate = velocity.y;
 
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView.dragging && !scrollView.decelerating) {
+    //if (scrollView.dragging && !scrollView.decelerating) {
         //[self detectScrollViewSelectedDate:scrollView];
-    }
+    //}
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -267,25 +254,25 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    
+
     if (!decelerate) {
         [self detectScrollViewSelectedDate:scrollView];
     }
-    
+
 }
 
 
 - (void)detectScrollViewSelectedDate:(UIScrollView *)scrollView
 {
     CGPoint centerPoint = CGPointMake(self.tableView.frame.origin.x + self.tableView.frame.size.width/2, self.tableView.frame.origin.y + self.tableView.frame.size.height/2);
-    
+
     CGPoint sPoint = [self convertPoint:centerPoint toView:scrollView];
-    
+
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:sPoint];
     NSIndexPath *SelectedindexPath = [self indexPathForRowAtDate:self.selectedDate];
-    
+
     CGRect rec = [self.tableView rectForRowAtIndexPath:SelectedindexPath];
-    
+
     if (!CGRectContainsPoint(rec, sPoint)) {
         self.selectedDate = [self dateForCellAtIndexPath:indexPath];
          [self.tableView selectRowAtIndexPath:[self indexPathForRowAtDate:self.selectedDate] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
