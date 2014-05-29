@@ -3,7 +3,9 @@
 A Lightweight Horizontal Calendar/Date Picker inspired by Square's TimesSquare
 [https://github.com/square/objc-TimesSquare](https://github.com/square/objc-TimesSquare)
 
-* It uses `UITableView` and *day* cells (`UITableViewCell`) will be resued to limit memory footprint.
+* It uses `UITableView`
+    + *Day* cells (`UITableViewCell`) will be reused to limit memory footprint.
+
 * It uses `NSCalendar` to support internationalization and localization.
 
 *Created for CapitalGene iOS App*
@@ -20,7 +22,7 @@ import `CGCalendarView.h` and `CGCalendarCell.h` (or your customized `UITableVie
 {
     // initalize calendarView with frame
     self.calendarView = [[CGCalendarView alloc] initWithFrame:CGRectMake(0, 20, 320, CG_CALENDAR_VIEW_HEIGHT)];
-    // use a global NSCalendar
+    // use a **global** NSCalendar
     self.calendarView.calendar = calendar;
 
     // Set the background color
@@ -58,7 +60,7 @@ import `CGCalendarView.h` and `CGCalendarCell.h` (or your customized `UITableVie
 - (void)calendarView:(CGCalendarView *)calendarView didSelectDate:(NSDate *)date;
 ```
 ## Customization
-CGCalendarView doesn't require its `rowCellClass` to be a subclass of `CGCalendarCell`, any `UITableViewCell` subclasses with the following properties/methods will work:
+CGCalendarView doesn't require its `rowCellClass` to be a subclass of `CGCalendarCell`. Any subclasses of `UITableViewCell` with the following properties/methods will work:
 
 ```Objective-C
 - (id)initWithCalendar:(NSCalendar *)calendar reuseIdentifier:(NSString *)reuseIdentifier;
