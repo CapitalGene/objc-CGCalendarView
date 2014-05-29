@@ -3,6 +3,9 @@
 A Lightweight Horizontal Calendar/Date Picker inspired by Square's TimesSquare
 [https://github.com/square/objc-TimesSquare](https://github.com/square/objc-TimesSquare)
 
+* It uses `UITableView` and *day* cells (`UITableViewCell`) will be resued to limit memory footprint.
+* It uses `NSCalendar` to support internationalization and localization.
+
 *Created for CapitalGene iOS App*
 
 ![Screenshot](https://github.com/CapitalGene/objc-CGCalendarView/raw/master/doc/img/capitalgene_sc_calendar.png "https://github.com/CapitalGene/objc-CGCalendarView/raw/master/doc/img/capitalgene_sc_calendar.png")
@@ -10,7 +13,7 @@ A Lightweight Horizontal Calendar/Date Picker inspired by Square's TimesSquare
 # Usage
 ## Initalize CGCalendarView
 
-import `CGCalendarView.h` and `CGCalendarCell.h`
+import `CGCalendarView.h` and `CGCalendarCell.h` (or your customized `UITableViewCell`)
 
 ```Objective-C
 - (void)setupCalendarView
@@ -54,6 +57,21 @@ import `CGCalendarView.h` and `CGCalendarCell.h`
 - (BOOL)calendarView:(CGCalendarView *)calendarView shouldSelectDate:(NSDate *)date;
 - (void)calendarView:(CGCalendarView *)calendarView didSelectDate:(NSDate *)date;
 ```
+## Customization
+CGCalendarView doesn't require its `rowCellClass` to be a subclass of `CGCalendarCell`, any `UITableViewCell` subclasses with the following properties/methods will work:
+
+```Objective-C
+- (id)initWithCalendar:(NSCalendar *)calendar reuseIdentifier:(NSString *)reuseIdentifier;
+```
+
+```Objective-C
++ (CGFloat)cellHeight;
+```
+
+```Objective-C
+- (void)setDate: (NSDate*)date
+```
+
 ## Demo Screenshot
 
 ![Screenshot](https://github.com/CapitalGene/objc-CGCalendarView/raw/master/doc/img/screenshot.png "https://github.com/CapitalGene/objc-CGCalendarView/raw/master/doc/img/screenshot.png")
