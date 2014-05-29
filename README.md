@@ -1,5 +1,4 @@
-objc-CGCalendarView
-===================
+# objc-CGCalendarView
 
 A Lightweight Horizontal Calendar/Date Picker inspired by Square's TimesSquare
 [https://github.com/square/objc-TimesSquare](https://github.com/square/objc-TimesSquare)
@@ -8,8 +7,9 @@ A Lightweight Horizontal Calendar/Date Picker inspired by Square's TimesSquare
 
 ![Screenshot](https://github.com/CapitalGene/objc-CGCalendarView/raw/master/doc/img/capitalgene_sc_calendar.png "https://github.com/CapitalGene/objc-CGCalendarView/raw/master/doc/img/capitalgene_sc_calendar.png")
 
-Usage
-=====
+# Usage
+## Initalize CGCalendarView
+
 import `CGCalendarView.h` and `CGCalendarCell.h`
 
 ```Objective-C
@@ -47,21 +47,29 @@ import `CGCalendarView.h` and `CGCalendarCell.h`
     [self.DF setDateFormat:@"yyyy-MM-dd"];
 }
 ```
+
+## Delegate Methods
+
+```Objective-C
+- (BOOL)calendarView:(CGCalendarView *)calendarView shouldSelectDate:(NSDate *)date;
+- (void)calendarView:(CGCalendarView *)calendarView didSelectDate:(NSDate *)date;
+```
+## Demo Screenshot
+
 ![Screenshot](https://github.com/CapitalGene/objc-CGCalendarView/raw/master/doc/img/screenshot.png "https://github.com/CapitalGene/objc-CGCalendarView/raw/master/doc/img/screenshot.png")
 
-Authors
-=======
+# Authors
 
 **Chen Liang**
 
 + http://chen.technology
 + http://github.com/uschen
 
-Credits
-=======
+# Credits
+
 + Inspired by [https://github.com/square/objc-TimesSquare](https://github.com/square/objc-TimesSquare)
 + UIImage+Additions, Piotr Bernad
 + UIView+ViewHelpers, Nathan Mock
 
-## License:
+# License:
 Licensed under the MIT license
