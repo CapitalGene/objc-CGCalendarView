@@ -15,7 +15,7 @@ Usage
   import **CGCalendarView.h** and **CGCalendarCell.h**
 
 
-    ```objective-c
+    ```Objective-C
 
     - (void)setupCalendarView
     {
